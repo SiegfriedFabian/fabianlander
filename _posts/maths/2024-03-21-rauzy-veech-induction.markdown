@@ -10,7 +10,7 @@ You’ll find this post in your `_posts` directory. Go ahead and edit it and re-
 
 `YEAR-MONTH-DAY-title.MARKUP`
 
-<img src="/assets/images/img.png" alt="Alt text" width="600" />
+<img src="assets/images/img.png" alt="Alt text" width="600" />
 
 $$ \nabla_\boldsymbol{x} J(\boldsymbol{x}) $$
 

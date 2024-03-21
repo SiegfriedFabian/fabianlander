@@ -7,7 +7,7 @@ Here is my blog post content.
 
 <div id="three-js-container" style="margin: 0 auto; width: 60%; height: 400px;"></div>
 <script type="module">
-  import { createScene } from '/assets/js/myScene.js'; // Adjust the path as necessary
+  import { createScene } from '../../../assets/js/myScene.js'; // Adjust the path as necessary
   createScene('three-js-container');
 </script>
 
