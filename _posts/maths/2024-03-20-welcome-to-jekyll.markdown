@@ -3,11 +3,19 @@ layout: post
 title:  "Testing"
 date:   2024-03-20 21:34:52 +0100
 categories: jekyll update
+permalink: "/testing.html"
+
 usemathjax: true
 ---
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file fhdhhfhis udkfpdated.
 
 `YEAR-MONTH-DAY-title.MARKUP`
+
+
+<img src="../../../assets/images/img.png" alt="Alt text" width="600" />
+
+<img src="assets/images/Rauzy-Veech/image.png" alt="Alt text" width="600" 
+
 
 $$ \nabla_\boldsymbol{x} J(\boldsymbol{x}) $$
 

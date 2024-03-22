@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Rauzy-Veech Induction"
+title:  "Images in Jekyll"
 date:   2024-03-21 16:00:00 +0100
 categories: dilationsurfaces rauzy-veech-induction
-permalink: "/rauzy-veech-induction.html"
+permalink: "/rauzy-veech-inductionTest.html"
 usemathjax: true
 ---
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file fhdhhfhis udkfpdatedfj.jdfljkfljka
@@ -11,6 +11,8 @@ You’ll find this post in your `_posts` directory. Go ahead and edit it and re-
 `YEAR-MONTH-DAY-title.MARKUP`
 
 <img src="assets/images/img.png" alt="Alt text" width="600" />
+
+<img src="assets/images/Rauzy-Veech/image.png" alt="Alt text" width="600" />
 
 $$ \nabla_\boldsymbol{x} J(\boldsymbol{x}) $$
 
@@ -39,8 +41,7 @@ print_hi('Tom')f
 
 Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/1.58.4/plotly.min.js"></script> <script src='/assets/20210312/runge_kutta.js'></script> <script src='/assets/20210312/vdp.js'></script>
-
 [jekyll-docs]: https://jekyllrb.com/docs/home
 [jekyll-gh]:   https://github.com/jekyll/jekyll
 [jekyll-talk]: https://talk.jekyllrb.com/
+ 
