@@ -9,7 +9,9 @@ permalink: "/rauzy-veech-induction.html"
 
 Informally, an interval exchange transformation (IET) is a predetermined shuffling of (finitely many) segments in an Interval. We are particularly interested in exploring the dynamical properties that emerge from the repeated application of such transformations.
 
-## Simplest Example
+
+## Interval exchange transformations
+We label our segments using elements of a set, called alphabet, $\mathcal{A}$ with $d > 1$ elements. Let $\lambda = (\lambda_i)_{i\in \mathcal{A} \pi}$ be a vector of positive real numbers describing the lengths of our segments. Consider bijections $\pi^{\text{top}}$ and $\pi^{\text{bot}}$ which will define two orderings of our segments. The permutation $\pi^{\text{top}}$ describes the initial ordering and $\pi^{\text{bot}}$ descibes the ordering afterwards. This data defines a map which we call an Interval Exchange Transformation (IET) denoted by $T_2$, where $\pi$ only contains the combinatorial data of the shuffling, i.e. $\pi =   \pi^{\text{bot}} \circ (\pi^{\text{top}})^{-1}$.
 
 <!-- Identifying the unit circle $S^1$ with $\mathbb{R} / \mathbb{Z}$ we define a rotation of angle $\alpha$ via the map
 
