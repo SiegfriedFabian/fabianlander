@@ -40,7 +40,7 @@ This shuffling is purely about rearranging the pieces using translations -- no f
     <span style="font-size: 14px; color: grey;">No flips or stretches allowed.</span>
 </div>
 
-We can repeatedly apply an IET to the interval. The following picture illustrates that. We name the segments where cut up the interval $A$, $B$, $C$, and $D$ and use the colors to keep track of the initial partition. Note that the initial segments might get cut-up at some point, for instance in the second iteration the blue segment (initially labelled with the letter $A$). It can also happen that a segment merges back together; in the third iteration the blue segment merged together with the previous order (but at a different position). 
+We can repeatedly apply an IET to the interval. The following picture illustrates that. We name the segments between the cuts $A$, $B$, $C$, and $D$ and use the colors to keep track of the initial partition. Note that the initial segments might get cut-up at some point, for instance in the second iteration the blue segment (initially labelled with the letter $A$). It can also happen that a segment merges back together; in the third iteration the blue segment merged together with the previous order (but at a different position). 
 
 <div style="text-align: center; margin-top: 50px; margin-bottom: 50px;">
     <img src="assets/images/Rauzy-Veech/iterateInformal.png" alt="Alt text" width="400" />
@@ -65,14 +65,13 @@ Note that in the example, the rightmost (green) segment gets mapped to itself an
 
 # Defining IETs
 
-The data that fully describe an IET with $d$ segments consits of the (relative) lengths of the segments and a permutation that tells us how to arrange the segments. There are two common ways of encoding this rearangement. Some authors <span style="color: #8B0000;">\[references\]</span> like to use numbers $1,\dots,d$ to label the segments (1 for the leftmost and d for the rightmost segment) and then use permutations $\pi: \\{1, \dots, d\\} \rightarrow \\{1, \dots, d\\}$ to encode the shuffling. Another (very similar) way is to use a set of  $d$ symbols $\Acal$, called **alphabet**, and define two linear orders on $\Acal$ which then define the permutation (in these symbols). We will use the later convention. Lets consider the example similar to the first picture of this post. Say $\lambda = (\lambda_1, \lambda_2)$ have four segments (whatever their lengths might be). Actually we already defined an alphabet for our IET using the letters $A,B,C,D$, so lets take $\Acal := \\{ A,B,C,D\\}$. To change things up lets pick a different initial ordering on $\Acal$ via
+The data that fully describe an IET with $d$ segments consits of the (relative) lengths of the segments and a permutation that tells us how to arrange the segments. There are two common ways of encoding this rearangement. Some authors <span style="color: #8B0000;">\[references\]</span> like to use numbers $1,\dots,d$ to label the segments (1 for the leftmost and d for the rightmost segment) and then use permutations $\pi: \\{1, \dots, d\\} \rightarrow \\{1, \dots, d\\}$ to encode the shuffling. Another (very similar) way is to use a set of  $d$ symbols $\Acal$, called **alphabet**, and define two linear orders on $\Acal$ which then define the permutation (in these symbols). We will use the later convention. Lets consider the example similar to the first picture of this post. Say $\lambda = (\lambda_1, \lambda_2)$ have four segments (whatever their lengths might be). Actually we already defined an alphabet for our IET using the letters $A,B,C,D$, so lets take $\Acal := \\{ A,B,C,D\\}$. To change things up lets pick a different ordering on $\Acal$ via
 
 $$
 \pitop = \begin{pmatrix} B & C & A & D \\ 1 & 2 & 3 & 4  \end{pmatrix} \qquad  \text{ and } \qquad \pibot = \begin{pmatrix} C & A & B & D \\ 1 & 2 & 3 & 4  \end{pmatrix}
 $$
 
 So we label the segments from left to right with $B,C,A,D$ and then rearrange them to $C,A,B,D$. Here is a picture where the lengths of the segments are given by $\lambda = (1,\frac{3}{2}, 1, \frac{1}{2}) \in \RR^4_+$, i.e. the first segment has length $1$, the second has length $\frac{3}{2}$, and so on.
-
 
 <!-- but since we have a clear way of ordering them ($A$ usually goes first, $B$ second, and so on), lets pick a set that doesn't have a (clear) order like $\Acal = \\{ 7, \alpha, X, \text{∞} \\}$. Later we will return to the latin alphabet for brevity. We need to give a labelling for the initial partition and a labelling for the rearranged partitioning forDefining an order on $\Acal$ is giving a map $ \pitop$. -->
 
@@ -148,8 +147,6 @@ $$
 We illustrate this map using two intervals which whe call the top and bot intervals. 
 
 <img src="assets/images/Rauzy-Veech/image.png" alt="Alt text" width="600" />
-
-<img src="assets/images/img.png" alt="Alt text" width="600" />
 
 
 ### Understanding Rotations
