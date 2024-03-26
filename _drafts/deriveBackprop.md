@@ -12,3 +12,4 @@ usemathjax: true
 Machine learning questions:
 -What does adam do?
 -What is RMSProp?
+-How does automatic differentiation work (+keras implementation: https://www.tensorflow.org/guide/autodiff  and  https://www.tensorflow.org/api_docs/python/tf/GradientTape)
