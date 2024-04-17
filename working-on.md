@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Work"
+title: "Visualisation"
 permalink: /working-on/
 ---
 
@@ -21,18 +21,18 @@ permalink: /working-on/
 </style>
 
 
-<h2>Project 1</h2>
-<p>Description of Project 1...</p>
+<h2>Hyperbolic Football Tiling</h2>
+<p>Description.</p>
 <ul>
-  <li>Step 1: Completed</li>
-  <li>Step 2: In Progress</li>
-  <li>Step 3: Not Started</li>
+  <li>Step 1: ...</li>
+  <li>Step 2: ...</li>
+  <li>Step 3: ...</li>
 </ul>
 <div class="progress-bar">
-  <div class="progress" style="width: 90%;">90%</div>
+  <div class="progress" style="width: 0%;">0%</div>
 </div>
 
-<h2>Project 2</h2>
+<!-- <h2>Project 2</h2>
 <p>Description of Project 2...</p>
 <ul>
   <li>Step 1: Completed</li>
@@ -41,4 +41,4 @@ permalink: /working-on/
 </ul>
 <div class="progress-bar">
   <div class="progress" style="width: 80%;">80%</div>
-</div>
+</div> -->
