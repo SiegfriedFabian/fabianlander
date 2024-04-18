@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Visualisation"
+title: "Progress"
 permalink: /working-on/
 ---
 
@@ -27,7 +27,11 @@ permalink: /working-on/
   <li>Step 1: ...</li>
   <li>Step 2: ...</li>
   <li>Step 3: ...</li>
+  <li> ...</li>
 </ul>
+<p>Hours spent: 0</p>
+
+
 <div class="progress-bar">
   <div class="progress" style="width: 0%;">0%</div>
 </div>
