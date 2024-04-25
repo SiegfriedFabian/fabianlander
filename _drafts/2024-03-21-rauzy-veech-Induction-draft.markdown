@@ -27,7 +27,7 @@ $$
 
 <!-- Let's first have an informal discussion on what Interval Exchange Transformations (IETs) are. Later we will (also with not too much rigour) introduce mathematical notation and objects that describes them. When we talk about an IET, we mean a map from an Interval $I$ to itself, that takes a finite partition and shuffles it. Here is a picture of an IET where the partition consists of four segments. -->
 
-Let's start with a casual conversation about Interval Exchange Transformations (IETs). Later on, we'll gently delve into the mathematical notation and concepts that describe them—nothing too heavy, just enough to spark our curiosity. When we talk about an IET, we're referring to a map from an interval $I$ to itself that takes a finite partition and gives it a good shuffle. Here's a snapshot of an IET in action, where the partition is made up of four (colored) segments.
+Let's start with an informal definition Interval Exchange Transformations (IETs). Later on, we'll gently delve into the mathematical notation and concepts that describe them—nothing too heavy, just enough to spark our curiosity. When we talk about an IET, we're referring to a map from an interval $I$ to itself that takes a finite partition and gives it a good shuffle. Here's an illustration of an IET in action, where the partition is made up of four (colored) segments.
 
 <div style="text-align: center; margin-top: 50px; margin-bottom: 50px;">
     <img src="assets/images/Rauzy-Veech/informalIET.png" alt="Alt text" width="600" />

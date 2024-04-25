@@ -3,9 +3,20 @@ layout: post
 title: "Reference for graphical elements in Jekyll"
 ---
 
+<style>
+  #three-js-container {
+    position: relative; /* Essential for correct positioning of children with absolute positioning */
+    margin: 0 auto;
+    width: 100%; /* Responsive width */
+    height: 700px; /* Fixed height */
+  }
+</style>
+
 Here is my blog post content.
 
-<div id="three-js-container" style="margin: 0 auto; width: 60%; height: 400px;"></div>
+<div id="three-js-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.7/build/dat.gui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stats.js"></script>
 <script type="module">
   import { createScene } from '../../../assets/js/myScene.js'; // Adjust the path as necessary
   createScene('three-js-container');

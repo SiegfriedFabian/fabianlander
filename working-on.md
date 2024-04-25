@@ -24,16 +24,30 @@ permalink: /working-on/
 <h2>Hyperbolic Football Tiling</h2>
 <p>Description.</p>
 <ul>
-  <li>Step 1: ...</li>
-  <li>Step 2: ...</li>
-  <li>Step 3: ...</li>
-  <li> ...</li>
+  <li>Step 1: Create a tiling mesh in blender</li>
+  <li>Step 2: use a spring model to 'embedd'</li>
+  <li>Step 3: Add football texture (maybe paint by hand)</li>
 </ul>
-<p>Hours spent: 0</p>
-
+<p>Hours spent: ~ 3.0</p>
 
 <div class="progress-bar">
-  <div class="progress" style="width: 0%;">0%</div>
+  <div class="progress" style="width: 90%;">90%</div>
+</div>
+
+
+<h2>Interactive Poincaré Disc Model</h2>
+<p>Description.</p>
+<ul>
+  <li>Step 1: Set up three js framework on website: url </li>
+  <li>Step 2: Create controls and make points dragable.</li>
+  <li>Step 3: Write up a logic for the discmodel (given two points (or point and direction) compute the geodesic, find intersections of geodesics, find möbius transform between geodesics ... etc.</li>
+  <li>...</li>
+  <li>Step n: Create pictures/Gifs/videos as backup (in the event that somehow the browser doesn't render.</li>
+</ul>
+<p>Hours spent: 0.5</p>
+
+<div class="progress-bar">
+  <div class="progress" style="width: 5%;">5%</div>
 </div>
 
 <!-- <h2>Project 2</h2>
