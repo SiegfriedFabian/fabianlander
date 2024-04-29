@@ -166,47 +166,32 @@ export function createScene(containerId) {
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(window.devicePixelRatio); // Adjust for high DPI displays
+    renderer.setPixelRatio(window.devicePixelRatio);
     container.appendChild(renderer.domElement);
 
     const uniforms = {
         time: { value: 0.0 },
         resolution: { value: new THREE.Vector2(width, height) },
-        mouse: { value: new THREE.Vector2(0, 0) }, // Uniform for mouse coordinates
-        speed: { value: 0.00 } // Default speed
+        mouse: { value: new THREE.Vector2(0, 0) },
+        speed: { value: 0.00 }
+    };
+
+    // Adjusted event listeners for both click and touch events
+    const updateMousePosition = (x, y, rect) => {
+        uniforms.mouse.value.x = ((x - rect.left) / rect.width) * 2 - 1;
+        uniforms.mouse.value.y = -((y - rect.top) / rect.height) * 2 + 1;
     };
 
     container.addEventListener('click', (event) => {
-        const rect = container.getBoundingClientRect();  // Get the bounding rectangle of the container
-      
-        // Function to check if the user's OS is macOS using User-Agent Client Hints API or userAgent string
-        const isMacOS = () => {
-          // Using navigator.userAgentData if available
-          if (navigator.userAgentData) {
-            return navigator.userAgentData.getHighEntropyValues(['platform', 'platformVersion'])
-              .then(data => {
-                return /mac/i.test(data.platform); // Check the platform key for "mac"
-              })
-              .catch(() => false); // Handle any errors gracefully
-          } else {
-            // Fallback to using userAgent string
-            return /Mac OS X|Macintosh|MacIntel/i.test(navigator.userAgent);
-          }
-        };
-      
-        // Since isMacOS can be asynchronous, handle it accordingly
-        isMacOS().then(isMac => {
-          const multiplier = isMac ? 0.5 : 1; // 0.5 if macOS, otherwise 1
-      
-          uniforms.mouse.value.x = multiplier * (((event.clientX - rect.left) / rect.width) * 2 - 1);
-          uniforms.mouse.value.y = multiplier * (-((event.clientY - rect.top) / rect.height) * (rect.height / rect.width) * 2 + 1); // Adjust y-coordinate for aspect ratio
-        });      
-            // Log the normalized mouse coordinates
-        console.log('Normalized mouse position:', uniforms.mouse.value.x, uniforms.mouse.value.y);
+        const rect = container.getBoundingClientRect();
+        updateMousePosition(event.clientX, event.clientY, rect);
+    });
 
-        // Optional: Log the actual mouse click coordinates and rectangle data for debugging
-        console.log('Actual mouse click coordinates:', event.clientX, event.clientY);
-        console.log('Container rect:', rect);
+    container.addEventListener('touchstart', (event) => {
+        event.preventDefault();
+        const touch = event.touches[0];
+        const rect = container.getBoundingClientRect();
+        updateMousePosition(touch.clientX, touch.clientY, rect);
     });
 
     const shaderMaterial = new THREE.ShaderMaterial({
@@ -217,42 +202,28 @@ export function createScene(containerId) {
             }
         `,
         fragmentShader: `
+        precision mediump float; // Added precision for better mobile support
         #define PI 3.14159265359
         uniform vec2 resolution;
         uniform float time;
         uniform vec2 mouse;
         
         vec3 color(vec2 uv) {
-            // Placeholder for your existing color calculation
-            return vec3(0.5, 0.2, 0.5); // Return some default color
+            return vec3(0.5, 0.2, 0.5); // Default color
         }
         
         void main() {
             vec2 uv = (gl_FragCoord.xy - resolution.xy * 0.5) / resolution.y;
-    
-            // Grid properties
-            float gridSpacing = 0.1; // Space between grid lines
-            float lineWidth = 0.001; // Width of the grid lines
-            vec3 gridColor = vec3(1.0, 1.0, 1.0); // Color of the grid lines
-        
-            // Determine if we are on a line
+            float gridSpacing = 0.1;
+            float lineWidth = 0.001;
+            vec3 gridColor = vec3(1.0, 1.0, 1.0);
             bool onXLine = abs(mod(uv.x, gridSpacing) - gridSpacing * 0.5) < lineWidth;
             bool onYLine = abs(mod(uv.y, gridSpacing) - gridSpacing * 0.5) < lineWidth;
-        
-            vec3 col;
-            if (onXLine || onYLine) {
-                col = gridColor; // Set color to gridColor on the lines
-            } else {
-                col = color(uv); // Use your existing coloring function
+            vec3 col = onXLine || onYLine ? gridColor : color(uv);
+            vec2 mousePos = vec2(mouse.x, mouse.y * (resolution.y / resolution.x));
+            if (length(uv - mousePos) < 0.05) {
+                col = vec3(1.0, 0.0, 0.0); // Red circle at mouse position
             }
-        
-            // Draw a circle at the mouse position
-            float radius = 0.05; // Radius of the circle
-            vec2 mousePos = vec2(mouse.x, mouse.y * (resolution.y / resolution.x)); // Adjust mouse y-coordinate for aspect ratio
-            if (length(uv - mousePos) < radius) {
-                col = vec3(1.0, 0.0, 0.0); // Color the circle red
-            }
-        
             gl_FragColor = vec4(col, 1.0);
         }
         `
@@ -268,12 +239,9 @@ export function createScene(containerId) {
     gui.domElement.style.top = '10px';
     gui.domElement.style.right = '10px';
 
-    const params = { speed: 0.1 };
-    gui.add(params, 'speed', 0, 1).name('Animation Speed').onChange((value) => {
-        uniforms.speed.value = value;
-    });
+    gui.add(uniforms.speed, 'value', 0, 1).name('Animation Speed');
 
-    window.addEventListener('resize', function onWindowResize() {
+    window.addEventListener('resize', () => {
         const newWidth = container.offsetWidth;
         const newHeight = container.offsetHeight;
         camera.aspect = newWidth / newHeight;
