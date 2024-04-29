@@ -155,7 +155,12 @@
 
 import * as THREE from './three.module.min.js'; // Ensure the path is correct
 
-const isMacOS = () => /Mac|iMac|Macintosh/i.test(navigator.userAgent);
+const isMacOS = () => {
+    const ua = navigator.userAgent;
+    const platform = navigator.platform;
+    // Check if the device is Mac without being an iPad
+    return /Mac|iMac|Macintosh/i.test(ua) && !/iPhone|iPad|iPod/i.test(platform);
+};
 
 export function createScene(containerId) {
     const scene = new THREE.Scene();
@@ -180,7 +185,7 @@ export function createScene(containerId) {
     };
 
     // Double the 'resolution' uniform if on macOS
-    if (/Mac|iMac|Macintosh/i.test(navigator.userAgent)) {
+    if (isMacOS) {
         uniforms.macRes.value = true; // Element-wise multiplication to double resolution
     }
 
