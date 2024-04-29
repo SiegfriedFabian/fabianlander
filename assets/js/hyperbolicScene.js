@@ -176,12 +176,31 @@ export function createScene(containerId) {
         speed: { value: 0.00 } // Default speed
     };
 
-    // Update mouse uniform on click
     container.addEventListener('click', (event) => {
         const rect = container.getBoundingClientRect();  // Get the bounding rectangle of the container
-        uniforms.mouse.value.x = 0.5*(((event.clientX - rect.left) / rect.width) * 2 - 1);
-        uniforms.mouse.value.y = 0.5*(-((event.clientY - rect.top) / rect.height) * (rect.height / rect.width) * 2 + 1);  // Adjust y-coordinate for aspect ratio
-
+      
+        // Function to check if the user's OS is macOS using User-Agent Client Hints API or userAgent string
+        const isMacOS = () => {
+          // Using navigator.userAgentData if available
+          if (navigator.userAgentData) {
+            return navigator.userAgentData.getHighEntropyValues(['platform', 'platformVersion'])
+              .then(data => {
+                return /mac/i.test(data.platform); // Check the platform key for "mac"
+              })
+              .catch(() => false); // Handle any errors gracefully
+          } else {
+            // Fallback to using userAgent string
+            return /Mac OS X|Macintosh|MacIntel/i.test(navigator.userAgent);
+          }
+        };
+      
+        // Since isMacOS can be asynchronous, handle it accordingly
+        isMacOS().then(isMac => {
+          const multiplier = isMac ? 0.5 : 1; // 0.5 if macOS, otherwise 1
+      
+          uniforms.mouse.value.x = multiplier * (((event.clientX - rect.left) / rect.width) * 2 - 1);
+          uniforms.mouse.value.y = multiplier * (-((event.clientY - rect.top) / rect.height) * (rect.height / rect.width) * 2 + 1); // Adjust y-coordinate for aspect ratio
+        });      
             // Log the normalized mouse coordinates
         console.log('Normalized mouse position:', uniforms.mouse.value.x, uniforms.mouse.value.y);
 
