@@ -155,6 +155,8 @@
 
 import * as THREE from './three.module.min.js'; // Ensure the path is correct
 
+const isMacOS = () => /Mac|iMac|Macintosh/i.test(navigator.userAgent);
+
 export function createScene(containerId) {
     const scene = new THREE.Scene();
     const container = document.getElementById(containerId);
@@ -166,33 +168,48 @@ export function createScene(containerId) {
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setPixelRatio(window.devicePixelRatio); // Adjust for high DPI displays
     container.appendChild(renderer.domElement);
 
     const uniforms = {
         time: { value: 0.0 },
+        macRes: {value: true},
         resolution: { value: new THREE.Vector2(width, height) },
-        mouse: { value: new THREE.Vector2(0, 0) },
-        speed: { value: 0.00 }
+        mouse: { value: new THREE.Vector2(0, 0) }, // Uniform for mouse coordinates
+        speed: { value: 0.1 }
     };
 
-    // Adjusted event listeners for both click and touch events
-    const updateMousePosition = (x, y, rect) => {
-        uniforms.mouse.value.x = ((x - rect.left) / rect.width) * 2 - 1;
-        uniforms.mouse.value.y = -((y - rect.top) / rect.height) * 2 + 1;
+    // Double the 'resolution' uniform if on macOS
+    if (/Mac|iMac|Macintosh/i.test(navigator.userAgent)) {
+        uniforms.macRes.value = true; // Element-wise multiplication to double resolution
+    }
+
+    // Function to update and log mouse position
+    const updateMousePosition = (clientX, clientY, rect) => {
+        uniforms.mouse.value.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+        uniforms.mouse.value.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+
+        // Log normalized coordinates
+        console.log('Normalized mouse position:', uniforms.mouse.value.x, uniforms.mouse.value.y);
+
+        // Log pixel coordinates
+        console.log('Pixel mouse position:', clientX - rect.left, clientY - rect.top);
     };
 
     container.addEventListener('click', (event) => {
         const rect = container.getBoundingClientRect();
         updateMousePosition(event.clientX, event.clientY, rect);
+
+        
     });
 
     container.addEventListener('touchstart', (event) => {
-        event.preventDefault();
+        event.preventDefault();  // Prevent scrolling and other default touch behaviors
         const touch = event.touches[0];
         const rect = container.getBoundingClientRect();
         updateMousePosition(touch.clientX, touch.clientY, rect);
     });
+
 
     const shaderMaterial = new THREE.ShaderMaterial({
         uniforms: uniforms,
@@ -207,6 +224,7 @@ export function createScene(containerId) {
         uniform vec2 resolution;
         uniform float time;
         uniform vec2 mouse;
+        uniform bool macRes;
         
         vec3 color(vec2 uv) {
             return vec3(0.5, 0.2, 0.5); // Default color
@@ -214,14 +232,18 @@ export function createScene(containerId) {
         
         void main() {
             vec2 uv = (gl_FragCoord.xy - resolution.xy * 0.5) / resolution.y;
-            float gridSpacing = 0.1;
-            float lineWidth = 0.001;
             vec3 gridColor = vec3(1.0, 1.0, 1.0);
+            if(macRes){
+                uv *= 2.0;
+                gridColor = vec3(0.0,0.0,0.0);
+            }
+            float gridSpacing = 0.1;
+            float lineWidth = 0.003;
             bool onXLine = abs(mod(uv.x, gridSpacing) - gridSpacing * 0.5) < lineWidth;
             bool onYLine = abs(mod(uv.y, gridSpacing) - gridSpacing * 0.5) < lineWidth;
             vec3 col = onXLine || onYLine ? gridColor : color(uv);
             vec2 mousePos = vec2(mouse.x, mouse.y * (resolution.y / resolution.x));
-            if (length(uv - mousePos) < 0.05) {
+            if (length(uv - mousePos) < 0.02) {
                 col = vec3(1.0, 0.0, 0.0); // Red circle at mouse position
             }
             gl_FragColor = vec4(col, 1.0);
@@ -229,19 +251,12 @@ export function createScene(containerId) {
         `
     });
 
+ 
     const planeGeometry = new THREE.PlaneGeometry(2, 2);
     const quad = new THREE.Mesh(planeGeometry, shaderMaterial);
     scene.add(quad);
 
-    const gui = new dat.GUI({ autoPlace: false });
-    container.appendChild(gui.domElement);
-    gui.domElement.style.position = 'absolute';
-    gui.domElement.style.top = '10px';
-    gui.domElement.style.right = '10px';
-
-    gui.add(uniforms.speed, 'value', 0, 1).name('Animation Speed');
-
-    window.addEventListener('resize', () => {
+    window.addEventListener('resize', function onWindowResize() {
         const newWidth = container.offsetWidth;
         const newHeight = container.offsetHeight;
         camera.aspect = newWidth / newHeight;
