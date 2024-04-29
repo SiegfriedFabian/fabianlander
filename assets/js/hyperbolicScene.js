@@ -224,7 +224,7 @@ export function createScene(containerId) {
         
         vec3 color(vec2 uv) {
             // Placeholder for your existing color calculation
-            return vec3(0.5, 0.0, 0.5); // Return some default color
+            return vec3(0.5, 0.2, 0.5); // Return some default color
         }
         
         void main() {
