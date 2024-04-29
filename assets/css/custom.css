@@ -1,0 +1,8 @@
+---
+---
+// The empty front matter above tells Jekyll to process the file.
+
+p {
+    text-align: justify;
+    text-justify: inter-word;
+}
